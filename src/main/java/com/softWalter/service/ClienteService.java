@@ -15,6 +15,14 @@ public class ClienteService {
         this.repository = repository;
     }
 
+//    /**
+//     * Metodo setRepository usado para injetar a dependencia.
+//     * @param repository
+//     */
+//    public void setRepository(ClienteRepository repository) {
+//        this.repository = repository;
+//    }
+
     public void salvarCliente(Cliente cliente){
         validarCliente(cliente);
         this.repository.persistir(cliente);
