@@ -23,11 +23,11 @@ public class ClienteService {
 //        this.repository = repository;
 //    }
 
-    public void salvarCliente(Cliente cliente){
+ /*   public void salvarCliente(Cliente cliente){
         validarCliente(cliente);
         this.repository.persistir(cliente);
     }
     public  void validarCliente(Cliente cliente){
         //validar Cliente
-    }
+    }*/
 }
