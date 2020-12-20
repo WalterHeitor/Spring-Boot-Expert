@@ -1,15 +1,12 @@
 package com.softWalter;
 
 import com.softWalter.model.Cliente;
-import com.softWalter.repository.ClienteRepository;
+import com.softWalter.repository.ClienteRepositoryJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,16 +26,26 @@ public class VendasApplication {
      */
 
     @Bean
-    public CommandLineRunner init(@Autowired ClienteRepository clienteRepository ){
+    public CommandLineRunner init(@Autowired ClienteRepositoryJdbc clienteRepository ){
         return args -> {
-            Cliente  cliente = new Cliente();
-            cliente.setNome("Walter");
+            System.out.println("salvando Clientes");
             clienteRepository.salvar(new Cliente("Walter"));
             clienteRepository.salvar(new Cliente("Heitor"));
             clienteRepository.salvar(new Cliente("Freitas"));
 
             List<Cliente>todosCliente = clienteRepository.obterTodos();
             todosCliente.forEach(System.out::println);
+
+            System.out.println("atuaizando Clientes");
+            todosCliente.forEach(c ->{
+                c.setNome(c.getNome() + " Atualizado");
+                clienteRepository.atualizar(c);
+            });
+            System.out.println("buscando Clientes");
+            clienteRepository.buscarPorNome("W").forEach(System.out::println);
+            todosCliente.forEach(System.out::println);
+//            clienteRepository.obterTodos();
+//            todosCliente.forEach(System.out::println);
 
         };
     }
