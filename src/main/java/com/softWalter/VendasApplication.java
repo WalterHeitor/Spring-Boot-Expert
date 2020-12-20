@@ -14,11 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VendasApplication {
     /*@Autowired
-    @Qualifier("applicationName")*/
+    @Qualifier("applicationName")
     @Value("${application.name}")
     private String applicationName;
 
-    @Cachorro
+    @GetMapping("/hello")
+    public String helloWord(){
+        return applicationName;
+    }
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(VendasApplication.class,args);
+    }
+
+    /* @Cachorro
     private Animal animal;
 
     @Bean(name = "executarAnimal")
@@ -28,11 +37,5 @@ public class VendasApplication {
         };
     }
 
-    @GetMapping("/hello")
-    public String helloWord(){
-        return applicationName;
-    }
-    public static void main(String[] args) {
-        SpringApplication.run(VendasApplication.class,args);
-    }
+    */
 }
