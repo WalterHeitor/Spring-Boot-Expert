@@ -3,6 +3,7 @@ package com.softWalter;
 import com.softWalter.model.Cliente;
 import com.softWalter.repository.ClienteRepository;
 import com.softWalter.repository.ClienteRepositoryJdbc;
+import com.softWalter.repository.ClientesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,26 +28,27 @@ public class VendasApplication {
      */
 
     @Bean
-    public CommandLineRunner init(@Autowired ClienteRepository clienteRepository ){
+    public CommandLineRunner init(@Autowired ClientesRepository clienteRepository ){
         return args -> {
             System.out.println("salvando Clientes");
-            clienteRepository.salvar(new Cliente("Walter"));
-            clienteRepository.salvar(new Cliente("Heitor"));
-            clienteRepository.salvar(new Cliente("Freitas"));
+            clienteRepository.save(new Cliente("Walter"));
+            clienteRepository.save(new Cliente("Heitor"));
+            clienteRepository.save(new Cliente("Freitas"));
 
-            List<Cliente>todosCliente = clienteRepository.buscarTodos();
+            List<Cliente>todosCliente = clienteRepository.findAll();
             todosCliente.forEach(System.out::println);
 
             System.out.println("atuaizando Clientes");
             todosCliente.forEach(c ->{
                 c.setNome(c.getNome() + " Atualizado");
-                clienteRepository.atualiza(c);
+                clienteRepository.save(c);
             });
             System.out.println("buscando Clientes");
-            clienteRepository.buscarPorNome("W").forEach(System.out::println);
+            clienteRepository.findByNomeLike("W").forEach(System.out::println);
             todosCliente.forEach(System.out::println);
-//            clienteRepository.obterTodos();
-//            todosCliente.forEach(System.out::println);
+            System.out.println("---------------------");
+            clienteRepository.findAll();
+            todosCliente.forEach(System.out::println);
 
         };
     }
