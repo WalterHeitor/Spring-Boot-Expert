@@ -1,6 +1,7 @@
 package com.softWalter;
 
 import com.softWalter.model.Cliente;
+import com.softWalter.repository.ClienteRepository;
 import com.softWalter.repository.ClienteRepositoryJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,20 +27,20 @@ public class VendasApplication {
      */
 
     @Bean
-    public CommandLineRunner init(@Autowired ClienteRepositoryJdbc clienteRepository ){
+    public CommandLineRunner init(@Autowired ClienteRepository clienteRepository ){
         return args -> {
             System.out.println("salvando Clientes");
             clienteRepository.salvar(new Cliente("Walter"));
             clienteRepository.salvar(new Cliente("Heitor"));
             clienteRepository.salvar(new Cliente("Freitas"));
 
-            List<Cliente>todosCliente = clienteRepository.obterTodos();
+            List<Cliente>todosCliente = clienteRepository.buscarTodos();
             todosCliente.forEach(System.out::println);
 
             System.out.println("atuaizando Clientes");
             todosCliente.forEach(c ->{
                 c.setNome(c.getNome() + " Atualizado");
-                clienteRepository.atualizar(c);
+                clienteRepository.atualiza(c);
             });
             System.out.println("buscando Clientes");
             clienteRepository.buscarPorNome("W").forEach(System.out::println);
