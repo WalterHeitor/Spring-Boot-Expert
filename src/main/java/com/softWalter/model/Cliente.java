@@ -1,10 +1,8 @@
 package com.softWalter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class Cliente implements Serializable{
@@ -15,6 +13,9 @@ public class Cliente implements Serializable{
     private Long id;
 
     private String nome;
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<Pedido> pedidoSet;
 
     public Cliente() {
     }
@@ -34,6 +35,14 @@ public class Cliente implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Pedido> getPedidoSet() {
+        return pedidoSet;
+    }
+
+    public void setPedidoSet(Set<Pedido> pedidoSet) {
+        this.pedidoSet = pedidoSet;
     }
 
     public String getNome() {
