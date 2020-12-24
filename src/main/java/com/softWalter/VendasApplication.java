@@ -40,6 +40,17 @@ public class VendasApplication {
 
             boolean existe = clienteRepository.existsByNome("Walter");
             System.out.println("existe um cliente chamado Walter? "+existe);
+            System.out.println("_____________________________");
+            List<Cliente>result = clienteRepository.encontrarPorNome("Heitor");
+            result.forEach(System.out::println);
+            System.out.println("____________________________");
+            List<Cliente> resultado =  clienteRepository.encontrarPorNomeSql("Heitor");
+
+
+           // clienteRepository.deleteByNome("Freitas");
+            clienteRepository.deleteAll(result);
+            todosCliente = clienteRepository.findAll();
+            todosCliente.forEach(System.out::println);
 
             /*System.out.println("atuaizando Clientes");
             todosCliente.forEach(c ->{
