@@ -1,13 +1,15 @@
 package com.softWalter.restApi.controller;
 
+import com.softWalter.model.Cliente;
+import com.softWalter.repository.ClientesRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
-@RequestMapping("api/clientes")
+@RequestMapping("/api/clientes")
 public class Clientecontroller {
 
     @RequestMapping(
@@ -19,5 +21,23 @@ public class Clientecontroller {
     @ResponseBody
     public String hello(@PathVariable("nome") String nomeCliente){
         return String.format("Hello %s", nomeCliente);
+    }
+
+
+
+    private ClientesRepository clientesRepository;
+    public Clientecontroller(ClientesRepository clientesRepository) {
+        this.clientesRepository = clientesRepository;
+    }
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity getClienteById(@PathVariable("id") Long id){
+        Optional<Cliente> cliente = clientesRepository.findById(id);
+
+        if (cliente.isPresent()){
+            return ResponseEntity.ok(cliente.get());
+        }
+
+    return ResponseEntity.notFound().build();
     }
 }

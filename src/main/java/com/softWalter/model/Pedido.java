@@ -1,5 +1,8 @@
 package com.softWalter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,6 +23,7 @@ public class Pedido implements Serializable {
     private BigDecimal total;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonBackReference
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido")

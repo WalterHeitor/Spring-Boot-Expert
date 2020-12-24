@@ -1,7 +1,13 @@
 package com.softWalter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,9 +19,10 @@ public class Cliente implements Serializable{
     private Long id;
 
     private String nome;
-
-    @OneToMany(mappedBy = "cliente")
-    private Set<Pedido> pedidos;
+    //@JsonIgnore
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos = new HashSet<>();
 
     public Cliente() {
     }
