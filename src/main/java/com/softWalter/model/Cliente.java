@@ -15,7 +15,7 @@ public class Cliente implements Serializable{
     private String nome;
 
     @OneToMany(mappedBy = "cliente")
-    private Set<Pedido> pedidoSet;
+    private Set<Pedido> pedidos;
 
     public Cliente() {
     }
@@ -37,12 +37,12 @@ public class Cliente implements Serializable{
         this.id = id;
     }
 
-    public Set<Pedido> getPedidoSet() {
-        return pedidoSet;
+    public Set<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setPedidoSet(Set<Pedido> pedidoSet) {
-        this.pedidoSet = pedidoSet;
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public String getNome() {

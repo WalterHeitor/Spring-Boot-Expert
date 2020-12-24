@@ -16,7 +16,7 @@ public class Pedido implements Serializable {
     private Long id;
 
     private LocalDate dataPedido;
-    @Column(length = 20, precision = 2)
+    @Column(precision = 20, scale = 2)
     private BigDecimal total;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
