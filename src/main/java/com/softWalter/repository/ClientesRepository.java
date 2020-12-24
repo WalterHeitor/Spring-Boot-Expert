@@ -8,6 +8,8 @@ import java.util.List;
 public interface ClientesRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByNomeLike(String nome);
 
-    //List<Cliente> findNomeLike(String nome);
+    List<Cliente> findByNomeOrId(String nome, Long id);
+
+    boolean existsByNome(String nome);
 
 }

@@ -38,7 +38,10 @@ public class VendasApplication {
             List<Cliente>todosCliente = clienteRepository.findAll();
             todosCliente.forEach(System.out::println);
 
-            System.out.println("atuaizando Clientes");
+            boolean existe = clienteRepository.existsByNome("Walter");
+            System.out.println("existe um cliente chamado Walter? "+existe);
+
+            /*System.out.println("atuaizando Clientes");
             todosCliente.forEach(c ->{
                 c.setNome(c.getNome() + " Atualizado");
                 clienteRepository.save(c);
@@ -48,7 +51,7 @@ public class VendasApplication {
             todosCliente.forEach(System.out::println);
             System.out.println("---------------------");
             clienteRepository.findAll();
-            todosCliente.forEach(System.out::println);
+            todosCliente.forEach(System.out::println);*/
 
         };
     }
