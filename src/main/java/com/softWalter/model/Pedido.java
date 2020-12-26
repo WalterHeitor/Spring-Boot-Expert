@@ -1,15 +1,20 @@
 package com.softWalter.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -29,7 +34,6 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "pedido")
     List<ItemPedido>itemPedidos;
 
-    public Pedido() {}
 
     public Pedido(LocalDate dataPedido, BigDecimal total, Cliente cliente) {
         this.dataPedido = dataPedido;
@@ -37,73 +41,10 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public Pedido(Long id, LocalDate dataPedido, BigDecimal total, Cliente cliente) {
-        this.id = id;
-        this.dataPedido = dataPedido;
-        this.total = total;
-        this.cliente = cliente;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public List<ItemPedido> getItemPedidos() {
-        return itemPedidos;
-    }
-
-    public void setItemPedidos(List<ItemPedido> itemPedidos) {
-        this.itemPedidos = itemPedidos;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pedido pedido = (Pedido) o;
-        return id.equals(pedido.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", dataPedido=" + dataPedido +
-                ", total=" + total +
-                ", cliente=" + cliente +
-                '}';
+    public List<ItemPedido> getItemPedidos(){
+        if(itemPedidos == null){
+            itemPedidos = new ArrayList<>();
+        }
+        return this.itemPedidos;
     }
 }
