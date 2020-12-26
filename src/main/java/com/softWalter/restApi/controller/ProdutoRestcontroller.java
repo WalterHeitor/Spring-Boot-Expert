@@ -44,17 +44,17 @@ public class ProdutoRestcontroller {
                 .map(produto -> {
                     produtosRepository.delete(produto);
                     return Void.TYPE;
-                }).orElseThrow(() ->
-                new ResponseStatusException(NOT_FOUND,
-                        "Prouto nao encontrado"));
+                })
+                .orElseThrow( () ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Produto não encontrado."));
     }
     @GetMapping("{id}")
-    @ResponseStatus(NO_CONTENT)
     public Produto getById(@PathVariable Long id){
         return produtosRepository.findById(id)
                 .orElseThrow(() ->
                 new ResponseStatusException(NOT_FOUND,
-                        "Prouto nao encontrado"));
+                        "Produto nao encontrado"));
     }
     @GetMapping
     public List<Produto> find(Produto filtro){

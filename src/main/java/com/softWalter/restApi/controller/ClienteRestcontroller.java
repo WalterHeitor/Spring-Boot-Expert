@@ -1,18 +1,16 @@
 package com.softWalter.restApi.controller;
 
-import ch.qos.logback.core.net.server.Client;
 import com.softWalter.model.Cliente;
 import com.softWalter.repository.ClientesRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/apirest/clientes")
@@ -47,12 +45,12 @@ public class ClienteRestcontroller {
     }
 
     @PostMapping("/salvar")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Cliente save(@RequestBody Cliente cliente){
         return clientesRepository.save(cliente);
     }
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public void deletar(@PathVariable Long id){
         clientesRepository.findById(id)
                     .map(cliente -> {
@@ -63,7 +61,7 @@ public class ClienteRestcontroller {
                 "cliente não encontrado"));
     }
     @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public void update(@PathVariable Long id,
                                  @RequestBody Cliente cliente){
         clientesRepository
