@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -22,12 +23,14 @@ public class ProdutoRestcontroller {
     }
     @PostMapping
     @ResponseStatus(CREATED)
-    public Produto save(@RequestBody Produto produto){
+    public Produto save(@RequestBody @Valid Produto produto){
         return produtosRepository.save(produto);
     }
+
     @PutMapping("{id}")
     @ResponseStatus(NO_CONTENT)
-    public void update(@PathVariable Long id, @RequestBody Produto produto){
+    public void update(@PathVariable Long id,
+                       @RequestBody @Valid Produto produto){
         produtosRepository
                 .findById(id)
                 .map(produto1 -> {

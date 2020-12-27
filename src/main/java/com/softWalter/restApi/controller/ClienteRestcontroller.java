@@ -50,6 +50,7 @@ public class ClienteRestcontroller {
     public Cliente save(@RequestBody @Valid Cliente cliente){
         return clientesRepository.save(cliente);
     }
+
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     public void deletar(@PathVariable Long id){
@@ -64,7 +65,7 @@ public class ClienteRestcontroller {
     @PutMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     public void update(@PathVariable Long id,
-                                 @RequestBody Cliente cliente){
+                                 @RequestBody @Valid Cliente cliente){
         clientesRepository
                 .findById(id)
                 .map(clienteExistente ->{

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 @Data
@@ -21,7 +23,9 @@ public class Produto implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo descrição e obridatório.")
     private String descricao;
+    @NotNull(message = "O campo preço e obrigatório")
     private BigDecimal preco_unitario;
 
     public Produto(String descricao, BigDecimal preco_unitario) {
