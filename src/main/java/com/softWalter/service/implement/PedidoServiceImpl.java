@@ -1,5 +1,7 @@
 package com.softWalter.service.implement;
 
+import com.softWalter.enums.StatusPedido;
+import com.softWalter.exception.PedidoNaoEncontradoException;
 import com.softWalter.exception.RegraNegocioException;
 import com.softWalter.model.Cliente;
 import com.softWalter.model.ItemPedido;
@@ -40,6 +42,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatusPedido(StatusPedido.REALIZADO);
 
         List<ItemPedido> itemPedidos = converterItems(pedido, pedidoDTO.getItems());
         pedidosRepository.save(pedido);
@@ -51,6 +54,17 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Long id) {
         return pedidosRepository.findByIdFetchItemPedidos(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizarStatus(Long id, StatusPedido statusPedido) {
+        pedidosRepository
+                .findById(id)
+                .map( pedido -> {
+                    pedido.setStatusPedido(statusPedido);
+                    return pedidosRepository.save(pedido);
+                }).orElseThrow(() -> new PedidoNaoEncontradoException());
     }
 
     private List<ItemPedido> converterItems (Pedido pedido,

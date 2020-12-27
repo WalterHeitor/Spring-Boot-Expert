@@ -1,6 +1,7 @@
 package com.softWalter.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.softWalter.enums.StatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,10 @@ public class Pedido implements Serializable {
     private Long id;
 
     private LocalDate dataPedido;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido statusPedido;
+
     @Column(precision = 20, scale = 2)
     private BigDecimal total;
     @ManyToOne

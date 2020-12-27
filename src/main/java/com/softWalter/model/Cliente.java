@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class Cliente implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Campo nome é obrigatório.")
     private String nome;
     private String cpf;
     @JsonIgnore

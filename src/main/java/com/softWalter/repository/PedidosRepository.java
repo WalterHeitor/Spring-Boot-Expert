@@ -1,5 +1,6 @@
 package com.softWalter.repository;
 
+import com.softWalter.enums.StatusPedido;
 import com.softWalter.model.Cliente;
 import com.softWalter.model.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,6 @@ public interface PedidosRepository extends JpaRepository<Pedido, Long> {
 
     @Query(" select p from Pedido p left join fetch p.itemPedidos where p.id = :id ")
     Optional<Pedido> findByIdFetchItemPedidos(@Param("id") Long id);
+
+
 }

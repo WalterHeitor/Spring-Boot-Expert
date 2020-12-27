@@ -1,7 +1,9 @@
 package com.softWalter.restApi.controller;
 
+import com.softWalter.enums.StatusPedido;
 import com.softWalter.model.ItemPedido;
 import com.softWalter.model.Pedido;
+import com.softWalter.restApi.dto.AtualizacaoStatusPedidoDTO;
 import com.softWalter.restApi.dto.InformacoesItemPedidoDTO;
 import com.softWalter.restApi.dto.InformacoesPedidoDTO;
 import com.softWalter.restApi.dto.PedidoDTO;
@@ -15,8 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -43,6 +44,14 @@ public class PedidoRestcontroller {
                         new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
     }
 
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Long id,
+                             @RequestBody AtualizacaoStatusPedidoDTO dto){
+        String novoStatus = dto.getNovoStatus();
+        pedidoService.atualizarStatus(id, StatusPedido.valueOf(novoStatus));
+
+    }
 
     private InformacoesPedidoDTO converter(Pedido pedido){
         return InformacoesPedidoDTO
@@ -53,6 +62,7 @@ public class PedidoRestcontroller {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
+                .status(pedido.getStatusPedido().name())  //.name converte em uma String
                 .items(converter(pedido.getItemPedidos()))
                 .build();
     }
