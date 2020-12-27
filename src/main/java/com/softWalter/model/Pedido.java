@@ -41,10 +41,10 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public List<ItemPedido> getItemPedidos(){
+  /*  public List<ItemPedido> getItemPedidos(){
         if(itemPedidos == null){
             itemPedidos = new ArrayList<>();
         }
         return this.itemPedidos;
-    }
+    }*/
 }

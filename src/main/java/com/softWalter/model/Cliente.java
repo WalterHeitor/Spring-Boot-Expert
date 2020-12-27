@@ -23,6 +23,7 @@ public class Cliente implements Serializable{
     private Long id;
 
     private String nome;
+    private String cpf;
     @JsonIgnore
     //@JsonManagedReference
     @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
@@ -35,5 +36,10 @@ public class Cliente implements Serializable{
     public Cliente(Long id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public Cliente(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
     }
 }
