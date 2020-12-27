@@ -1,5 +1,6 @@
 package com.softWalter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,10 +23,17 @@ public class Cliente implements Serializable{
     private Long id;
 
     private String nome;
-    //@JsonIgnore
-    @JsonManagedReference
+    @JsonIgnore
+    //@JsonManagedReference
     @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
     private Set<Pedido> pedidos = new HashSet<>();
 
+    public Cliente(String nome) {
+        this.nome = nome;
+    }
 
+    public Cliente(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 }

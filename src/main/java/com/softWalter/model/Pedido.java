@@ -28,7 +28,7 @@ public class Pedido implements Serializable {
     private BigDecimal total;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonBackReference
+   // @JsonBackReference
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido")

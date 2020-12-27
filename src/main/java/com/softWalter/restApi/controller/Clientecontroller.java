@@ -44,14 +44,14 @@ public class Clientecontroller {
     return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseBody
     public  ResponseEntity save(@RequestBody Cliente cliente){
         Cliente clienteSalvo = clientesRepository.save(cliente);
         return ResponseEntity.ok(clienteSalvo);
 
     }
-    @DeleteMapping("/remover/{id}")
+    @DeleteMapping("{id}")
     @ResponseBody
     public ResponseEntity deletar(@PathVariable Long id){
         Optional<Cliente> cliente = clientesRepository.findById(id);
@@ -62,7 +62,7 @@ public class Clientecontroller {
         }
     return ResponseEntity.notFound().build();
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("{id}")
     @ResponseBody
     public ResponseEntity update(@PathVariable Long id,
                                  @RequestBody Cliente cliente){
@@ -75,7 +75,7 @@ public class Clientecontroller {
     }).orElseGet(()->ResponseEntity.notFound().build());
 
     }
-    @GetMapping("/buscar")
+    @GetMapping
     public ResponseEntity find(Cliente filtro){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()

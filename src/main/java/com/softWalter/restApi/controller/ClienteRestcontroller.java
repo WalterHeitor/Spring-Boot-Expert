@@ -32,7 +32,7 @@ public class ClienteRestcontroller {
     public ClienteRestcontroller(ClientesRepository clientesRepository) {
         this.clientesRepository = clientesRepository;
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Cliente getClienteById(@PathVariable("id") Long id){
         return clientesRepository
                 .findById(id)
@@ -44,7 +44,7 @@ public class ClienteRestcontroller {
 
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseStatus(CREATED)
     public Cliente save(@RequestBody Cliente cliente){
         return clientesRepository.save(cliente);
@@ -75,16 +75,14 @@ public class ClienteRestcontroller {
                         "cliente não encontrado"));
 
     }
-    @GetMapping("/buscar")
+    @GetMapping()
     public List<Cliente> find(Cliente filtro){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(
-                        ExampleMatcher.StringMatcher.CONTAINING
-                );
+                        ExampleMatcher.StringMatcher.CONTAINING);
         Example example = Example.of(filtro, matcher);
-        List<Cliente>lista = clientesRepository.findAll(example);
         return clientesRepository.findAll(example);
     }
 }
