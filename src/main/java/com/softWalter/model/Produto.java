@@ -23,9 +23,9 @@ public class Produto implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "O campo descrição e obridatório.")
+    @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
-    @NotNull(message = "O campo preço e obrigatório")
+    @NotNull(message = "{campo.preco.obrigatorio}")
     private BigDecimal preco_unitario;
 
     public Produto(String descricao, BigDecimal preco_unitario) {

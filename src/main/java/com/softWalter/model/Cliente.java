@@ -24,10 +24,10 @@ public class Cliente implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Campo nome é obrigatório.")
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
-    @NotEmpty(message = "Campo CPF é obrigatório")
-    //@CPF(message = "Informe um CPF válido")
+    //@NotEmpty(message = "{campo.cpf.obrigatorio}")
+    //@CPF(message = "{campo.cpf.invalido}")
     private String cpf;
     @JsonIgnore
     //@JsonManagedReference
