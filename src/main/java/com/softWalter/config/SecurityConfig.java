@@ -38,9 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
-                .withUser("Walter")
+                .withUser("WalterFreitas")
                 .password(passwordEncoder().encode("123"))
-                .roles("USER");
+                .roles("USER")
+                .and()
+
+                .withUser("WalterHeitor")
+                .password(passwordEncoder().encode("1234"))
+                .roles("USER", "ADMIN");
     }
 
     /*Verifica se usuario esta autorizado.
@@ -48,6 +53,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/apirest/clientes/**")
+                //.authenticated()
+                    .hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/api/pedidos/**")
+                //    .hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/produtos/**")
+                    .hasRole("ADMIN")
+        .and()
+             //.formLogin();
+            .httpBasic();
+
     }
 }
