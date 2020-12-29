@@ -37,20 +37,24 @@ public class VendasApplication {
     public CommandLineRunner init(@Autowired ClientesRepository clienteRepository,
                                   @Autowired PedidosRepository pedidosRepository){
         return args -> {
-            System.out.println("salvando Clientes");
+           /* System.out.println("salvando Clientes");
             Cliente walter = new Cliente("Walter");
             Cliente heitor = new Cliente("Heitor");
             Cliente freitas = new Cliente("Freitas");
+
+            */
             /*clienteRepository.save(walter);
             clienteRepository.save(heitor);
             clienteRepository.save(freitas);*/
-           clienteRepository.saveAll(Arrays.asList(walter,heitor,freitas));
+         /*  clienteRepository.saveAll(Arrays.asList(walter,heitor,freitas));
 
             Pedido p1 = new Pedido();
             p1.setCliente(walter);
             p1.setDataPedido(LocalDate.now());
             p1.setTotal(BigDecimal.valueOf(100));
             pedidosRepository.save(p1);
+
+          */
 
             /*Cliente cliente = clienteRepository.findClienteFetchPedidos(walter.getId());
             System.out.println(cliente);
