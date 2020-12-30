@@ -1,5 +1,6 @@
 package com.softWalter.service.implement;
 
+import com.softWalter.exception.SenhaInvalidException;
 import com.softWalter.model.Usuario;
 import com.softWalter.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,15 @@ public class UsuarioServiceImpl implements UserDetailsService {
     @Transactional
     public Usuario salvar(Usuario usuario){
         return usuarioRepository.save(usuario);
+    }
+
+    public UserDetails autenticar(Usuario usuario){
+        UserDetails userDetails  = loadUserByUsername(usuario.getLogin());
+        boolean senhasBatem = encoder.matches(usuario.getSenha(), userDetails.getPassword());
+        if (senhasBatem){
+            return userDetails;
+        }
+        throw new SenhaInvalidException();
     }
 
     @Override

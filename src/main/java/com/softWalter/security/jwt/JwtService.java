@@ -1,5 +1,6 @@
-package com.softWalter;
+package com.softWalter.security.jwt;
 
+import com.softWalter.VendasApplication;
 import com.softWalter.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
