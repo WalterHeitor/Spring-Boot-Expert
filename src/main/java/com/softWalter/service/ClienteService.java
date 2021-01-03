@@ -1,19 +1,18 @@
 package com.softWalter.service;
 
-import com.softWalter.model.Cliente;
-import com.softWalter.repository.ClienteRepository;
+import com.softWalter.repository.ClientesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClienteService {
+public interface ClienteService {
 
-    private ClienteRepository repository;
+  /*  private ClientesRepositoryRepository repository;
 
     @Autowired
-    public ClienteService(ClienteRepository repository){
+    public ClienteService(ClientesRepositoryRepository repository){
         this.repository = repository;
-    }
+    }*/
 
 //    /**
 //     * Metodo setRepository usado para injetar a dependencia.

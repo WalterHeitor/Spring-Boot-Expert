@@ -1,27 +1,18 @@
 package com.softWalter;
 
-import com.softWalter.model.Cliente;
-import com.softWalter.model.Pedido;
-import com.softWalter.repository.ClienteRepository;
-import com.softWalter.repository.ClienteRepositoryJdbc;
 import com.softWalter.repository.ClientesRepository;
 import com.softWalter.repository.PedidosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @SpringBootApplication
 @RestController
-public class VendasApplication {
+public class VendasApplication extends SpringBootServletInitializer {
     /*@Autowired
     @Qualifier("applicationName")
     @Value("${application.name}")

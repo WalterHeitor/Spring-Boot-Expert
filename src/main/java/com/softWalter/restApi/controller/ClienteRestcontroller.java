@@ -2,6 +2,7 @@ package com.softWalter.restApi.controller;
 
 import com.softWalter.model.Cliente;
 import com.softWalter.repository.ClientesRepository;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/apirest/clientes")
+@Api("Api Clientes")
 public class ClienteRestcontroller {
 
     @RequestMapping(
@@ -23,6 +25,7 @@ public class ClienteRestcontroller {
             consumes = {"aplication/json", "application/xml"},
             produces = {"aplication/json", "application/xml"}
     )
+
     public String hello(@PathVariable("nome") String nomeCliente){
         return String.format("Hello %s", nomeCliente);
     }
@@ -34,7 +37,13 @@ public class ClienteRestcontroller {
         this.clientesRepository = clientesRepository;
     }
     @GetMapping("{id}")
-    public Cliente getClienteById(@PathVariable("id") Long id){
+    @ApiOperation("Obter detalhes do cliente")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente encontrado!"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado!")
+    })
+    public Cliente getClienteById(@PathVariable
+                                              @ApiParam("Id do Cliente") Long id){
         return clientesRepository
                 .findById(id)
                 .orElseThrow(()->
@@ -47,6 +56,11 @@ public class ClienteRestcontroller {
 
     @PostMapping
     @ResponseStatus(CREATED)
+    @ApiOperation("Salvar um novo cliente")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cliente salvo com Sucesso!"),
+            @ApiResponse(code = 400, message = "Erro de Validação!")
+    })
     public Cliente save(@RequestBody @Valid Cliente cliente){
         return clientesRepository.save(cliente);
     }
